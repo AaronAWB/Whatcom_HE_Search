@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Search = () => {
 
-  const URL = "https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43";
+  const URL = "https://crossorigin.me/https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43";
 
   // const [searchTerm, setSearchTerm] = useState("");
   // const [searchResults, setSearchResults] = useState([]);
