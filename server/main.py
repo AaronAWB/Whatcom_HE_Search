@@ -7,8 +7,14 @@ from bs4 import BeautifulSoup
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from pdfminer.pdfdocument import PDFTextExtractionNotAllowed
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfinterp import PDFResourceManager
+from pdfminer.pdfpage import PDFPage
+from pdfminer.converter import TextConverter
+from io import StringIO
 from PIL import Image
 from pdf2image import convert_from_bytes
+
 
 
 URL = "https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43";
@@ -33,6 +39,7 @@ def search_keyword_in_pdfs(pdf_links, keyword):
         complete_link = urllib.parse.urljoin(base_url, link)
         response = requests.get(complete_link)
         pdf_content = response.content
+        get_metadata(pdf_content)
 
         try:
             pdf_reader = PyPDF2.PdfReader(BytesIO(pdf_content))
@@ -72,7 +79,32 @@ def search_keyword_in_pdfs(pdf_links, keyword):
                     print(f"No image found in PDF: {link}")
 
         except Exception:
-            print(f"Invalid PDF: {link}")
+            print("Running OCR...")
+            try:
+                resource_manager = PDFResourceManager()
+                fake_file_handle = StringIO()
+                converter = TextConverter(resource_manager, fake_file_handle)
+                page_interpreter = PDFPageInterpreter(resource_manager, converter)
+
+                for page in PDFPage.get_pages(BytesIO(pdf_content)):
+                    page_interpreter.process_page(page)
+
+                extracted_text = fake_file_handle.getvalue()
+                extracted_text = extracted_text.strip()
+
+                if keyword in extracted_text:
+                    print(f"Keyword '{keyword}' found using OCR in PDF: {link}")
+                else:
+                    print(f"Keyword '{keyword}' not found in PDF: {link}")
+            except Exception:
+                print(f"Failed to run OCR on PDF: {link}")
+
+def get_metadata(pdf_content):
+
+    pdf_stream = BytesIO(pdf_content)
+    pdf_reader = PyPDF2.PdfReader(pdf_stream)
+    metadata = pdf_reader.metadata
+    print(metadata)
 
 
-search_keyword_in_pdfs(pdf_links, 'Michael')
+search_keyword_in_pdfs(pdf_links, 'Whatcom')
