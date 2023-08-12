@@ -1,6 +1,11 @@
+import { useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap'
 
 function Results({ searchResults }) {
+
+  useEffect(() => {
+    console.log(searchResults)
+  }, [searchResults])
 
   const renderSearchResults = () => {
     return searchResults.map((result, index) => {

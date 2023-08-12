@@ -14,7 +14,7 @@ const Search = ({ setSearchResults }) => {
       const res = await axios.get(`/api/search/${searchTerm}`)
       const data = res.data;
       const results = data.search_results;
-      setSearchResults([results]);
+      setSearchResults(results);
     } catch (err) {
       console.log(err);
     }
