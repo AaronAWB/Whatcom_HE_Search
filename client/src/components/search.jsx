@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import { Container, Form, Button } from 'react-bootstrap';
 
-const Search = () => {
+const Search = ({ setSearchResults }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
+  
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(`Search term: ${searchTerm}`);
-    console.log(`Clicked`)
-
+  
     try {
       const res = await axios.get(`/api/search/${searchTerm}`)
       const data = res.data;
@@ -24,13 +21,8 @@ const Search = () => {
     setSearchTerm("");
   }
 
-  useEffect(() => {
-    console.log(`Search results: ${searchResults}`);
-  }, [searchResults])
-  
-
     return (
-        <Container>
+        <Container className='show-sm mt-5'>
           <Form className='d-flex' onSubmit={handleSearch}>
             <Form.Control
               type='search'
