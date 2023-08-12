@@ -17,7 +17,7 @@ class WHE_Scrape:
 
     def retrieve_pdf_links(self):
         # Finds all <a> tags in the html and extracts the links
-        for link in self.html.find_all('a'):
+        for link in self.soup.find_all('a'):
             links = link.get('href')
             if links is not None:
                 link_list = links.split()
@@ -54,6 +54,9 @@ class WHE_Scrape:
                 # if not text.strip():
                 #     print(f"PDF is not text-based: {link}. Running OCR...")
                 #     image_to_text(pdf_content, keyword, link)
+
+                for result in search_results:
+                    print(result)
     
             return search_results
     
@@ -65,6 +68,8 @@ class WHE_Scrape:
                 metadata = pdf_reader.getDocumentInfo()
                 print(metadata)
             except:
-                print("No metadata found.") 
+                print("No metadata found.")
+
+    
 
 whe_scrape = WHE_Scrape()

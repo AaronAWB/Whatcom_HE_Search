@@ -1,7 +1,7 @@
 from flask_restx import Resource
 
 from src import api
-from src.lib import whe_scrape
+from src.lib.WHE_scrape import whe_scrape
 
 @api.route('/search/<keyword>')
 class Search(Resource):
