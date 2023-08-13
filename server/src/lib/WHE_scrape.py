@@ -1,6 +1,6 @@
 import requests
 import urllib.parse
-import PyPDF2
+from PyPDF2 import PdfReader
 
 from bs4 import BeautifulSoup
 from io import BytesIO
@@ -32,21 +32,12 @@ class WHE_Scrape:
             search_results = []
     
             for link in self.pdf_links:
-                complete_link = urllib.parse.urljoin(base_url, link)
+                complete_link = base_url + link
                 response = requests.get(complete_link)
                 pdf_content = response.content
-                # get_metadata(pdf_content)
-    
-                # Creates a PyPDF2 reader object to read the PDF content
-                pdf_reader = PyPDF2.PdfReader(BytesIO(pdf_content))
-    
-                # Checks if the PDF has a valid /Root object
-                # if '/Root' not in pdf_reader.trailer:
-                #     print(f"Invalid PDF: {link}")
-                #     continue
-    
-                # Extracts the text from the PDF using pdfminer, deletes whitespace, and checks if the keyword is in the text
-                text = extract_text(BytesIO(pdf_content)).strip()
+ 
+                # Extracts the text from the PDF using pdfminer and checks if the keyword is in the text
+                text = extract_text(BytesIO(pdf_content))
                 if keyword in text:
                     search_results.append(link)
     
@@ -60,13 +51,20 @@ class WHE_Scrape:
     
             return search_results
     
-    def get_metadata(self, pdf_content):
-        
+    def get_metadata(self):
+            
+            base_url = "https://wa-whatcomcounty.civicplus.com/"
+            
             try:
                 # Creates a PyPDF2 reader object to extract the metadata
-                pdf_reader = PyPDF2.PdfFileReader(BytesIO(pdf_content))
-                metadata = pdf_reader.getDocumentInfo()
-                print(metadata)
+                link = 'Archive.aspx?ADID=15523'
+                complete_link = base_url + link
+                response = requests.get(complete_link)
+                pdf_content = response.content
+
+                pdf_reader = PdfReader(BytesIO(pdf_content))
+                metadata = pdf_reader.metadata
+                return metadata
             except:
                 print("No metadata found.")
 

@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint
 from .extensions import api
 
-from .routes.search_routes import Search
+from .routes.search_routes import Search, Metadata
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -21,5 +21,6 @@ def create_app():
     app.register_blueprint(api_bp)
 
     api.add_resource(Search, '/search/<keyword>')
+    api.add_resource(Metadata, '/metadata')  
 
     return app
