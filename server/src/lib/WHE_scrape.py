@@ -16,62 +16,60 @@ class WHE_Scrape:
         self.pdf_links = []
 
     def retrieve_pdf_links(self):
-        # Finds all <a> tags in the html and extracts the links
+    # Finds all <a> tags in the html and extracts the links
         for link in self.soup.find_all('a'):
             links = link.get('href')
             case_name = link.find_next('span').text.strip() if link.find_next('span') else None
+
             if links is not None:
                 link_list = links.split()
 
                 for pdf_link in link_list:
-                     if pdf_link.startswith('Archive.aspx?ADID'):
+                    if pdf_link.startswith('Archive.aspx?ADID'):
                         self.pdf_links.append({'link': pdf_link, 'case_name': case_name})
 
     
-
     def search_keyword(self, keyword):
             
-            base_url = "https://wa-whatcomcounty.civicplus.com/"
-            self.retrieve_pdf_links()
-            search_results = []
-    
-            for link_info in self.pdf_links:
-                complete_link = base_url + link_info['link']
-                response = requests.get(complete_link)
-                pdf_content = response.content
- 
-                # Extracts the text from the PDF using pdfminer and checks if the keyword is in the text
-                text = extract_text(BytesIO(pdf_content))
-                if keyword in text:
-                    search_results.append(link_info)
-    
-                # Checks if the PDF is text-based, if not, runs OCR on the PDF
-                # if not text.strip():
-                #     print(f"PDF is not text-based: {link}. Running OCR...")
-                #     image_to_text(pdf_content, keyword, link)
+        base_url = "https://wa-whatcomcounty.civicplus.com/"
+        self.retrieve_pdf_links()
+        search_results = []
 
-                for result in search_results:
-                    print(result)
-    
-            return search_results
+        for link_info in self.pdf_links:
+            complete_link = base_url + link_info['link']
+            response = requests.get(complete_link)
+            pdf_content = response.content
+
+            # Extracts the text from the PDF using pdfminer and checks if the keyword is in the text
+            text = extract_text(BytesIO(pdf_content))
+            if keyword in text:
+                search_results.append(link_info)
+
+            # Checks if the PDF is text-based, if not, runs OCR on the PDF
+            # if not text.strip():
+            #     print(f"PDF is not text-based: {link}. Running OCR...")
+            #     image_to_text(pdf_content, keyword, link)
+
+            for result in search_results:
+                print(result)
+
+        return search_results
     
     def get_metadata(self):
             
-            base_url = "https://wa-whatcomcounty.civicplus.com/"
-            
-            try:
-                # Creates a PyPDF2 reader object to extract the metadata
-                link = 'Archive.aspx?ADID=15523'
-                complete_link = base_url + link
-                response = requests.get(complete_link)
-                pdf_content = response.content
+        base_url = "https://wa-whatcomcounty.civicplus.com/"
+        
+        try:
+            # Creates a PyPDF2 reader object to extract the metadata
+            link = 'Archive.aspx?ADID=15523'
+            complete_link = base_url + link
+            response = requests.get(complete_link)
+            pdf_content = response.content
 
-                pdf_reader = PdfReader(BytesIO(pdf_content))
-                metadata = pdf_reader.metadata
-                return metadata
-            except:
-                print("No metadata found.")
-
-    
+            pdf_reader = PdfReader(BytesIO(pdf_content))
+            metadata = pdf_reader.metadata
+            return metadata
+        except:
+            print("No metadata found.")
 
 whe_scrape = WHE_Scrape()
