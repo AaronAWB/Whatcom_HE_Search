@@ -20,38 +20,32 @@ class WHE_Scrape:
         for link in self.soup.find_all('a'):
             links = link.get('href')
             case_name = link.find_next('span').text.strip() if link.find_next('span') else None
-
             if links is not None:
                 link_list = links.split()
-
+    
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
                         self.pdf_links.append({'link': pdf_link, 'case_name': case_name})
-
-    
+                        
     def search_keyword(self, keyword):
             
         base_url = "https://wa-whatcomcounty.civicplus.com/"
         self.retrieve_pdf_links()
         search_results = []
-
+        print(f'keyword: {keyword}')
+        
         for link_info in self.pdf_links:
             complete_link = base_url + link_info['link']
             response = requests.get(complete_link)
             pdf_content = response.content
+            
+            text = extract_text(BytesIO(pdf_content)).strip()
+            normalized_text = ' '.join(text.split())
+            normalized_text_lower = normalized_text.lower()
 
-            # Extracts the text from the PDF using pdfminer and checks if the keyword is in the text
-            text = extract_text(BytesIO(pdf_content))
-            if keyword in text:
+            if keyword.lower() in normalized_text_lower:
+                print(f'keyword found in {link_info["case_name"]}')
                 search_results.append(link_info)
-
-            # Checks if the PDF is text-based, if not, runs OCR on the PDF
-            # if not text.strip():
-            #     print(f"PDF is not text-based: {link}. Running OCR...")
-            #     image_to_text(pdf_content, keyword, link)
-
-            for result in search_results:
-                print(result)
 
         return search_results
     
