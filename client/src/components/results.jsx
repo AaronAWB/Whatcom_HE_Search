@@ -9,9 +9,14 @@ function Results({ searchResults }) {
 
   const renderSearchResults = () => {
     return searchResults.map((result, index) => {
+        const name = result.case_name
+        const link = result.link
+        const date = result.date
       return (
         <tr key={index}>
-          <td>{result}</td>
+          <td>{name}</td>
+          <td>{date}</td>
+          <td>{link}</td>
         </tr>
       )
     })
@@ -22,7 +27,9 @@ function Results({ searchResults }) {
       <Table bordered hover>
         <thead>
           <tr>
-            <th>Link Id</th>
+            <th>Case Name</th>
+            <th>Date</th>
+            <th>Link</th>
           </tr>
         </thead>
         <tbody>

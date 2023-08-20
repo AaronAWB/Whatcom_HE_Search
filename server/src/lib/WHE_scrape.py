@@ -19,8 +19,10 @@ class WHE_Scrape:
     # Finds all <a> tags in the html and extracts the links
         for link in self.soup.find_all('a'):
             links = link.get('href')
+
             case_name = link.find_next('span').text.strip() if link.find_next('span') else None
             date = link.find_next_sibling('span').text.strip() if link.find_next_sibling('span') else None
+            
             if links is not None:
                 link_list = links.split()
     
