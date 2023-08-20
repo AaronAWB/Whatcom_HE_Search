@@ -9,7 +9,7 @@ const Search = ({ setSearchResults }) => {
   
   const handleSearch = async (e) => {
     e.preventDefault();
-  
+    
     try {
       const res = await axios.get(`/api/search/${searchTerm}`)
       const data = res.data;

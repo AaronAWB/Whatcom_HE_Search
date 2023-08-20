@@ -13,7 +13,7 @@ function Results({ searchResults }) {
         const link = result.link
         const date = result.date
       return (
-        <tr key={index}>
+        <tr key={index} className='shadow-sm'>
           <td>{name}</td>
           <td>{date}</td>
           <td>{link}</td>
@@ -24,7 +24,7 @@ function Results({ searchResults }) {
 
   return(
     <Container className='mt-5'>
-      <Table bordered hover>
+      <Table striped hover className='shadow-sm'>
         <thead>
           <tr>
             <th>Case Name</th>
