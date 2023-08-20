@@ -20,12 +20,13 @@ class WHE_Scrape:
         for link in self.soup.find_all('a'):
             links = link.get('href')
             case_name = link.find_next('span').text.strip() if link.find_next('span') else None
+            date = link.find_next_sibling('span').text.strip() if link.find_next_sibling('span') else None
             if links is not None:
                 link_list = links.split()
     
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
-                        self.pdf_links.append({'link': pdf_link, 'case_name': case_name})
+                        self.pdf_links.append({'link': pdf_link, 'case_name': case_name, 'date': date})
                         
     def search_keyword(self, keyword):
             
