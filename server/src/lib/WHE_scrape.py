@@ -13,10 +13,11 @@ class WHE_Scrape:
         self.URL = "https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43"
         self.html = requests.get(self.URL).text
         self.soup = BeautifulSoup(self.html, 'html.parser')
-        self.pdf_links = []
-
+        
     def retrieve_pdf_links(self):
     # Finds all <a> tags in the html and extracts the links
+    # that start with 'Archive.aspx?ADID'
+        pdf_links = []
         for link in self.soup.find_all('a'):
             links = link.get('href')
 
@@ -28,16 +29,18 @@ class WHE_Scrape:
     
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
-                        self.pdf_links.append({'link': pdf_link, 'case_name': case_name, 'date': date})
+                        pdf_links.append({'link': pdf_link, 'case_name': case_name, 'date': date})
+        
+        return pdf_links
                         
     def search_keyword(self, keyword):
             
         base_url = "https://wa-whatcomcounty.civicplus.com/"
-        self.retrieve_pdf_links()
+        pdf_links = self.retrieve_pdf_links()
         search_results = []
         print(f'keyword: {keyword}')
         
-        for link_info in self.pdf_links:
+        for link_info in pdf_links:
             complete_link = base_url + link_info['link']
             response = requests.get(complete_link)
             pdf_content = response.content
