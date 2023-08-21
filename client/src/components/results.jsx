@@ -16,7 +16,11 @@ function Results({ searchResults }) {
         <tr key={index} className='shadow-sm'>
           <td>{name}</td>
           <td>{date}</td>
-          <td>{link}</td>
+          <td>
+            <a href={'https://wa-whatcomcounty.civicplus.com/' + link} >
+              PDF
+            </a>
+          </td>
         </tr>
       )
     })
