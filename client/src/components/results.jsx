@@ -11,12 +11,14 @@ function Results({ searchResults }) {
         const decisionFullDate = result.decision_full_date
         const decisionYearOnly = result.decision_year_only
         const decisionDate = decisionFullDate ? decisionFullDate : decisionYearOnly;
+        const hearingExaminer = result.hearing_examiner
         
       return (
         <tr key={index} className='shadow-sm'>
           <td>{name}</td>
           <td className={hearingDate === 'Not listed.' ? 'not-listed' : ''}>{hearingDate}</td>
           <td className={decisionDate === 'Not listed.' ? 'not-listed' : ''}>{decisionDate}</td>
+          <td>{hearingExaminer}</td>
           <td>
             <a href={'https://wa-whatcomcounty.civicplus.com/' + link} >
               PDF
@@ -35,6 +37,7 @@ function Results({ searchResults }) {
             <th>Case Name</th>
             <th>Hearing Date</th>
             <th>Decision Date</th>
+            <th>Hearing Examiner</th>
             <th>Link</th>
           </tr>
         </thead>

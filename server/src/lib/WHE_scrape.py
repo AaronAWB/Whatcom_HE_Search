@@ -1,5 +1,4 @@
 import requests
-import urllib.parse
 import re
 
 from PyPDF2 import PdfReader
@@ -31,20 +30,22 @@ class WHE_Scrape:
     
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
+                        pdf_text = self.extract_text(pdf_link)
                         
                         extracted_dates = self.extract_date(date)
                         hearing_date = extracted_dates['hearingDate']
                         decision_full_date = extracted_dates['decisionFullDate']
                         decision_year_only = extracted_dates['decisionYearOnly']
 
-                        pdf_text = self.extract_text(pdf_link)
-                        
+                        hearing_examiner = self.extract_hearing_examiner(pdf_text)['hearing_examiner_name']
+
                         pdf_links.append({
                             'link': pdf_link, 
                             'case_name': case_name, 
                             'hearing_date': hearing_date,
                             'decision_full_date': decision_full_date,
                             'decision_year_only': decision_year_only,
+                            'hearing_examiner': hearing_examiner,
                             'pdf_text': pdf_text
                             })
         
@@ -80,9 +81,19 @@ class WHE_Scrape:
             'decisionFullDate': decision_full_date, 
             'decisionYearOnly': decision_year_only
             }
-                        
-    def search_keyword(self, keyword):
     
+    def extract_hearing_examiner(self, pdf_text):
+        pattern = r"dated this [^\n]*?(\d{1,2}(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4})[\s\S]*?([A-Za-z\s]+),"
+        match = re.search(pattern, pdf_text, re.IGNORECASE)
+        if match:
+            date = match.group(1)
+            hearing_examiner_name = match.group(2)
+            return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
+        else:
+            return {'hearing_examiner_name': 'Unable to locate.'}
+                            
+    def search_keyword(self, keyword):
+        
         print(f'keyword: {keyword}')
         pdf_links = self.retrieve_pdf_data()
         search_results = []
