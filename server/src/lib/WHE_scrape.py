@@ -18,10 +18,11 @@ class WHE_Scrape:
     def retrieve_pdf_data(self):
     # Finds all <a> tags in the html and extracts the links
     # that start with 'Archive.aspx?ADID'
+        
         pdf_links = []
         for link in self.soup.find_all('a'):
             links = link.get('href')
-
+        
             case_name = link.find_next('span').text.strip() if link.find_next('span') else None
             date = link.find_next_sibling('span').text.strip() if link.find_next_sibling('span') else None
             
@@ -35,16 +36,31 @@ class WHE_Scrape:
                         hearing_date = extracted_dates['hearingDate']
                         decision_full_date = extracted_dates['decisionFullDate']
                         decision_year_only = extracted_dates['decisionYearOnly']
+
+                        pdf_text = self.extract_text(pdf_link)
                         
                         pdf_links.append({
                             'link': pdf_link, 
                             'case_name': case_name, 
                             'hearing_date': hearing_date,
                             'decision_full_date': decision_full_date,
-                            'decision_year_only': decision_year_only
+                            'decision_year_only': decision_year_only,
+                            'pdf_text': pdf_text
                             })
         
         return pdf_links
+    
+    def extract_text(self, link):
+        base_url = "https://wa-whatcomcounty.civicplus.com/"
+        complete_link = base_url + link
+        response = requests.get(complete_link)
+        pdf_content = response.content
+        
+        text = extract_text(BytesIO(pdf_content)).strip()
+        normalized_text = ' '.join(text.split())
+        extracted_text = normalized_text.lower()
+        
+        return extracted_text
     
     def extract_date(self, date):
         hearing_date_pattern = r'Hearing Date (\d{1,2}\/\d{1,2}\/\d{4})'
@@ -66,22 +82,14 @@ class WHE_Scrape:
             }
                         
     def search_keyword(self, keyword):
-            
-        base_url = "https://wa-whatcomcounty.civicplus.com/"
+    
+        print(f'keyword: {keyword}')
         pdf_links = self.retrieve_pdf_data()
         search_results = []
-        print(f'keyword: {keyword}')
         
         for link_info in pdf_links:
-            complete_link = base_url + link_info['link']
-            response = requests.get(complete_link)
-            pdf_content = response.content
-            
-            text = extract_text(BytesIO(pdf_content)).strip()
-            normalized_text = ' '.join(text.split())
-            normalized_text_lower = normalized_text.lower()
-
-            if keyword.lower() in normalized_text_lower:
+            pdf_text = link_info.get('pdf_text', '').lower()
+            if keyword.lower() in pdf_text:
                 print(f'keyword found in {link_info["case_name"]}')
                 search_results.append(link_info)
 
