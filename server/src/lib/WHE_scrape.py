@@ -31,7 +31,7 @@ class WHE_Scrape:
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
                         pdf_text = self.extract_text(pdf_link)
-                        
+
                         extracted_dates = self.extract_date(date)
                         hearing_date = extracted_dates['hearingDate']
                         decision_full_date = extracted_dates['decisionFullDate']
@@ -87,7 +87,8 @@ class WHE_Scrape:
         match = re.search(pattern, pdf_text, re.IGNORECASE)
         if match:
             date = match.group(1)
-            hearing_examiner_name = match.group(2)
+            name_match = match.group(2)
+            hearing_examiner_name = name_match.title()
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
         else:
             return {'hearing_examiner_name': 'Unable to locate.'}

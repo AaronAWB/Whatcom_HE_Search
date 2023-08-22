@@ -16,9 +16,9 @@ function Results({ searchResults }) {
       return (
         <tr key={index} className='shadow-sm'>
           <td>{name}</td>
+          <td className={hearingExaminer === 'Unable to locate.' ? 'unable-to-locate' : ''}>{hearingExaminer}</td>
           <td className={hearingDate === 'Not listed.' ? 'not-listed' : ''}>{hearingDate}</td>
           <td className={decisionDate === 'Not listed.' ? 'not-listed' : ''}>{decisionDate}</td>
-          <td>{hearingExaminer}</td>
           <td>
             <a href={'https://wa-whatcomcounty.civicplus.com/' + link} >
               PDF
@@ -35,9 +35,9 @@ function Results({ searchResults }) {
         <thead>
           <tr>
             <th>Case Name</th>
+            <th>Hearing Examiner</th>
             <th>Hearing Date</th>
             <th>Decision Date</th>
-            <th>Hearing Examiner</th>
             <th>Link</th>
           </tr>
         </thead>

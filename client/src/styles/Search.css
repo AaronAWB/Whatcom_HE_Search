@@ -1,0 +1,9 @@
+.displayed-term-container {
+  width: 30% !important;
+}
+
+.displayed-term-text {
+  font-size: 1rem !important;
+  font-style: italic !important;
+  color: grey !important;
+}

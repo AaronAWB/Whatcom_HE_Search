@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Container, Form, Button } from 'react-bootstrap';
 
+import '@Styles/Search.css';
+
 const Search = ({ setSearchResults }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [displayedTerm, setDisplayedTerm] = useState("");
+
+  useEffect(() => {
+    console.log('displayedTerm: ', displayedTerm);
+  }, [displayedTerm]);
   
   const handleSearch = async (e) => {
     e.preventDefault();
-    
+    setDisplayedTerm(searchTerm);
+
     try {
       const res = await axios.get(`/api/search/${searchTerm}`)
       const data = res.data;
@@ -41,6 +49,11 @@ const Search = ({ setSearchResults }) => {
               Search
             </Button>
           </Form>
+          <Container className='mt-3 displayed-term-container'>
+            <span className='displayed-term-text'>
+              Displaying results for: {displayedTerm ? `"${displayedTerm}"` : ''}
+            </span>
+          </Container>
         </Container>
     )
 }
