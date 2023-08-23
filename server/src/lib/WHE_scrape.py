@@ -64,8 +64,8 @@ class WHE_Scrape:
         return extracted_text
     
     def extract_date(self, date):
-        hearing_date_pattern = r'Hearing Date (\d{1,2}\/\d{1,2}\/\d{4})'
-        decision_date_pattern = r'Decision Date (\d{1,2}\/\d{1,2}\/\d{4})'
+        hearing_date_pattern = r'Hearing Date (\d{1,2}[./]\d{1,2}[./]\d{2,4})'
+        decision_date_pattern = r'Decision Date (\d{1,2}[./]\d{1,2}[./]\d{2,4})'
         decision_year_pattern = r'(\d{4})'
 
         hearing_date_match = re.search(hearing_date_pattern, date)
@@ -83,13 +83,15 @@ class WHE_Scrape:
             }
     
     def extract_hearing_examiner(self, pdf_text):
-        pattern = r"dated this [^\n]*?(\d{1,2}(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4})[\s\S]*?([A-Za-z\s]+),"
+        pattern = r"DATED this [^\n]*?(\d{1,2}(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4})[\s\S]*?([\w\s.]+),"
         match = re.search(pattern, pdf_text, re.IGNORECASE)
+        
         if match:
             date = match.group(1)
             name_match = match.group(2)
-            hearing_examiner_name = name_match.title()
+            hearing_examiner_name = name_match.title().replace('.', '').replace('\n', '').replace('_', '').strip()
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
+        
         else:
             return {'hearing_examiner_name': 'Unable to locate.'}
                             
