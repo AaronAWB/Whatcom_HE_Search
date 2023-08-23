@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 from bs4 import BeautifulSoup
 from io import BytesIO
 from pdfminer.high_level import extract_text
-
+from datetime import datetime
 
 class WHE_Scrape:
 
@@ -72,8 +72,8 @@ class WHE_Scrape:
         decision_date_match = re.search(decision_date_pattern, date)
         decision_year_match = re.search(decision_year_pattern, date)
 
-        hearing_date = hearing_date_match.group(1) if hearing_date_match else 'Not listed.'
-        decision_full_date = decision_date_match.group(1) if decision_date_match else None
+        hearing_date = self.format_date(hearing_date_match.group(1)) if hearing_date_match else 'Not listed.'
+        decision_full_date = self.format_date(decision_date_match.group(1)) if decision_date_match else None
         decision_year_only = decision_year_match.group(1) if decision_year_match else 'Not listed.'
 
         return {
@@ -82,6 +82,18 @@ class WHE_Scrape:
             'decisionYearOnly': decision_year_only
             }
     
+    def format_date(self, date):
+        try:
+            date_obj = datetime.strptime(date, '%m/%d/%Y')
+        except ValueError:
+            try:
+                date_obj = datetime.strptime(date, '%m.%d.%y')
+            except ValueError:
+                return date
+            
+        formatted_date = date_obj.strftime('%B %d, %Y')
+        return formatted_date
+
     def extract_hearing_examiner(self, pdf_text):
         pattern = r"DATED this [^\n]*?(\d{1,2}(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4})[\s\S]*?([\w\s.]+),"
         match = re.search(pattern, pdf_text, re.IGNORECASE)
