@@ -25,6 +25,8 @@ dist-ssr
 
 # dependencies
 node_modules/
-.venv/
+.venv
 /.pnp
 .pnp.js
+
+.env

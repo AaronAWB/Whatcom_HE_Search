@@ -18,7 +18,7 @@ class WHE_Scrape:
     # Finds all <a> tags in the html and extracts the links
     # that start with 'Archive.aspx?ADID'
         
-        pdf_links = []
+        pdf_data = []
         for link in self.soup.find_all('a'):
             links = link.get('href')
         
@@ -39,7 +39,7 @@ class WHE_Scrape:
 
                         hearing_examiner = self.extract_hearing_examiner(pdf_text)['hearing_examiner_name']
 
-                        pdf_links.append({
+                        pdf_data.append({
                             'link': pdf_link, 
                             'case_name': case_name, 
                             'hearing_date': hearing_date,
@@ -49,7 +49,7 @@ class WHE_Scrape:
                             'pdf_text': pdf_text
                             })
         
-        return pdf_links
+        return pdf_data
     
     def extract_text(self, link):
         base_url = "https://wa-whatcomcounty.civicplus.com/"
@@ -137,5 +137,13 @@ class WHE_Scrape:
             return metadata
         except:
             print("No metadata found.")
+
+    def update_db(self):
+        print("Updating database...")
+        decision_list = []
+        decisions = self.retrieve_pdf_data()
+        for decision in decisions:
+            decision_list.append(decision)
+            print(decision_list)
 
 whe_scrape = WHE_Scrape()
