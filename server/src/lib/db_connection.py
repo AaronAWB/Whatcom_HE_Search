@@ -1,13 +1,11 @@
-from WHE_scrape import whe_scrape
+from src.lib.WHE_scrape import whe_scrape
 from ..extensions import db
 from src.models.decisions import Decision
 
 class DB_Connection:
-    
-  def __init__(self):
-    self.decisions = whe_scrape.retrieve_pdf_data()
-  
+     
   def add_decisions(self):
+      decisions = whe_scrape.retrieve_pdf_data()
       
       try:
       
@@ -17,7 +15,7 @@ class DB_Connection:
         if 'decisions' not in tables:
           Decision.__table__.create(db.engine)
 
-        for decision in self.decisions:
+        for decision in decisions:
           if not self.decision_in_db(decision):
             new_decision = Decision(
                 case_name = decision['case_name'],

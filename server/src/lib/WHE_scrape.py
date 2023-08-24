@@ -136,14 +136,6 @@ class WHE_Scrape:
             metadata = pdf_reader.metadata
             return metadata
         except:
-            print("No metadata found.")
-
-    def update_db(self):
-        print("Updating database...")
-        decision_list = []
-        decisions = self.retrieve_pdf_data()
-        for decision in decisions:
-            decision_list.append(decision)
-            print(decision_list)
+            print("No metadata found.")            
 
 whe_scrape = WHE_Scrape()

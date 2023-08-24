@@ -1,10 +1,10 @@
 from flask_restx import Resource
 
 from src import api
-from src.lib.db_connection import add_decisions
+from src.lib.db_connection import db_connection
 
 @api.route('/update_db')
-class Search(Resource):
+class UpdateDB(Resource):
   def post(self):
-    add_decisions()
-    return 201
+    db_connection.add_decisions()
+    return 'Database updated.', 201
