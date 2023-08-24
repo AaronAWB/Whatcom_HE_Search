@@ -3,8 +3,9 @@ from ..extensions import db
 from src.models.decisions import Decision
 
 class DB_Connection:
-     
+
   def add_decisions(self):
+      print('Adding decisions to database')
       decisions = whe_scrape.retrieve_pdf_data()
       
       try:

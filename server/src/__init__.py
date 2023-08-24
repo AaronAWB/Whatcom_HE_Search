@@ -30,7 +30,6 @@ def create_app():
     
     api.add_resource(Search, '/search/<keyword>')
     api.add_resource(Metadata, '/metadata')
-
-    api.add_resource(UpdateDB, '/update_db')  
+    api.add_resource(UpdateDB, '/update_db')
 
     return app

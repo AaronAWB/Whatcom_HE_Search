@@ -12,5 +12,4 @@ class Search(Resource):
 class Metadata(Resource):
   def get(self):
     return {'metadata': whe_scrape.get_metadata()}
-  
-  
+
