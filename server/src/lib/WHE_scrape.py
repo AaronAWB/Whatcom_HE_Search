@@ -74,7 +74,8 @@ class WHE_Scrape:
 
         hearing_date = self.format_date(hearing_date_match.group(1)) if hearing_date_match else 'Not listed.'
         decision_full_date = self.format_date(decision_date_match.group(1)) if decision_date_match else None
-        decision_year_only = decision_year_match.group(1) if decision_year_match else 'Not listed.'
+        if not decision_full_date:
+            decision_year_only = decision_year_match.group(1) if decision_year_match else 'Not listed.'
 
         return {
             'hearingDate': hearing_date, 

@@ -1,4 +1,5 @@
 from flask_restx import Resource
+from sqlalchemy import or_
 
 from src import api
 from src.lib.WHE_scrape import whe_scrape
