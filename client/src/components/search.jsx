@@ -52,7 +52,7 @@ const Search = ({ setSearchResults }) => {
           </Form>
           <Container className='mt-3 displayed-term-container'>
             <span className='displayed-term-text'>
-              Displaying results for: {displayedTerm ? `"${displayedTerm}"` : ''}
+              The following decisions contain the keyword: {displayedTerm ? `"${displayedTerm}"` : ''}
             </span>
           </Container>
         </Container>
