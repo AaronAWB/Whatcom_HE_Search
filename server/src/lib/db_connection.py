@@ -5,7 +5,7 @@ from src.models.decisions import Decision
 class DB_Connection:
 
   def add_decisions(self):
-      print('Adding decisions to database')
+      print('Adding decisions to database...')
       decisions = whe_scrape.retrieve_pdf_data()
       
       try:
@@ -22,7 +22,7 @@ class DB_Connection:
                 case_name = decision['case_name'],
                 hearing_examiner = decision['hearing_examiner'],
                 hearing_date = decision['hearing_date'],
-                decision_date = decision['decision_full_date'],
+                decision_date = decision['decision_date'],
                 text = decision['pdf_text'],
                 link = decision['link']
             )
