@@ -8,9 +8,7 @@ function Results({ searchResults }) {
         const name = result.case_name
         const link = result.link
         const hearingDate = result.hearing_date
-        const decisionFullDate = result.decision_full_date
-        const decisionYearOnly = result.decision_year_only
-        const decisionDate = decisionFullDate ? decisionFullDate : decisionYearOnly;
+        const decisionDate = result.decision_date
         const hearingExaminer = result.hearing_examiner
         
       return (

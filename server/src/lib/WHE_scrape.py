@@ -18,7 +18,7 @@ class WHE_Scrape:
     # Finds all <a> tags in the html and extracts the links
     # that start with 'Archive.aspx?ADID'
         
-        pdf_links = []
+        pdf_data = []
         for link in self.soup.find_all('a'):
             links = link.get('href')
         
@@ -34,22 +34,20 @@ class WHE_Scrape:
 
                         extracted_dates = self.extract_date(date)
                         hearing_date = extracted_dates['hearingDate']
-                        decision_full_date = extracted_dates['decisionFullDate']
-                        decision_year_only = extracted_dates['decisionYearOnly']
+                        decision_date = extracted_dates['decisionDate']
 
                         hearing_examiner = self.extract_hearing_examiner(pdf_text)['hearing_examiner_name']
 
-                        pdf_links.append({
+                        pdf_data.append({
                             'link': pdf_link, 
                             'case_name': case_name, 
                             'hearing_date': hearing_date,
-                            'decision_full_date': decision_full_date,
-                            'decision_year_only': decision_year_only,
+                            'decision_date': decision_date,
                             'hearing_examiner': hearing_examiner,
-                            'pdf_text': pdf_text
+                            'pdf_text': pdf_text if pdf_text else 'Non-searchable PDF.'
                             })
         
-        return pdf_links
+        return pdf_data
     
     def extract_text(self, link):
         base_url = "https://wa-whatcomcounty.civicplus.com/"
@@ -73,13 +71,13 @@ class WHE_Scrape:
         decision_year_match = re.search(decision_year_pattern, date)
 
         hearing_date = self.format_date(hearing_date_match.group(1)) if hearing_date_match else 'Not listed.'
-        decision_full_date = self.format_date(decision_date_match.group(1)) if decision_date_match else None
-        decision_year_only = decision_year_match.group(1) if decision_year_match else 'Not listed.'
+        decision_date = self.format_date(decision_date_match.group(1)) if decision_date_match else None
+        if not decision_date:
+            decision_date = decision_year_match.group(1) if decision_year_match else 'Not listed.'
 
         return {
             'hearingDate': hearing_date, 
-            'decisionFullDate': decision_full_date, 
-            'decisionYearOnly': decision_year_only
+            'decisionDate': decision_date,
             }
     
     def format_date(self, date):
@@ -104,6 +102,12 @@ class WHE_Scrape:
             hearing_examiner_name = name_match.title().replace('.', '').replace('\n', '').replace('_', '').strip()
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
         
+        elif 'Rajeev Majumdar' in pdf_text:
+            return {'hearing_examiner_name': 'Rajeev Majumdar'}
+        
+        elif 'Michael Bobbink' in pdf_text:
+            return {'hearing_examiner_name': 'Michael Bobbink'}
+            
         else:
             return {'hearing_examiner_name': 'Unable to locate.'}
                             
@@ -136,6 +140,6 @@ class WHE_Scrape:
             metadata = pdf_reader.metadata
             return metadata
         except:
-            print("No metadata found.")
+            print("No metadata found.")            
 
 whe_scrape = WHE_Scrape()
