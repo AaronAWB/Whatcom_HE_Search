@@ -13,7 +13,8 @@ const Search = ({ setSearchResults }) => {
   useEffect(() => {
     console.log('displayedTerm: ', displayedTerm);
   }, [displayedTerm]);
-  
+
+
   const handleSearch = async (e) => {
     e.preventDefault();
     setDisplayedTerm(searchTerm);
