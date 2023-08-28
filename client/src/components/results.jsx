@@ -1,5 +1,7 @@
 import { Container, Table } from 'react-bootstrap'
+import { formatDate } from '@Utils/utilityFunctions'
 import '@Styles/results.css'
+
 
 function Results({ searchResults }) {
 
@@ -7,8 +9,8 @@ function Results({ searchResults }) {
     return searchResults.map((result, index) => {
         const name = result.case_name
         const link = result.link
-        const hearingDate = result.hearing_date
-        const decisionDate = result.decision_date
+        const hearingDate = formatDate(result.hearing_date)
+        const decisionDate = formatDate(result.decision_date)
         const hearingExaminer = result.hearing_examiner
         
       return (

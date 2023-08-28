@@ -46,7 +46,7 @@ class WHE_Scrape:
                             'hearing_examiner': hearing_examiner,
                             'pdf_text': pdf_text if pdf_text else 'Non-searchable PDF.'
                             })
-        
+                            
         return pdf_data
     
     def extract_text(self, link):
@@ -87,7 +87,10 @@ class WHE_Scrape:
             try:
                 date_obj = datetime.strptime(date, '%m.%d.%y')
             except ValueError:
-                return date
+                try:
+                    date_obj = datetime.strptime(date, 'm.d.%Y')
+                except ValueError:
+                    return date
             
         formatted_date = date_obj.strftime('%B %d, %Y')
         return formatted_date
