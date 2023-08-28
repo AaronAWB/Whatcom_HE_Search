@@ -1,5 +1,7 @@
 .displayed-term-container {
-  width: 30% !important;
+  display: flex !important;
+  width: 60% !important;
+  justify-content: center !important;
 }
 
 .displayed-term-text {

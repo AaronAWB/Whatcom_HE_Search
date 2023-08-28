@@ -10,11 +10,6 @@ const Search = ({ setSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [displayedTerm, setDisplayedTerm] = useState("");
 
-  useEffect(() => {
-    console.log('displayedTerm: ', displayedTerm);
-  }, [displayedTerm]);
-
-
   const handleSearch = async (e) => {
     e.preventDefault();
     setDisplayedTerm(searchTerm);
@@ -50,11 +45,13 @@ const Search = ({ setSearchResults }) => {
               Search
             </Button>
           </Form>
-          <Container className='mt-3 displayed-term-container'>
-            <span className='displayed-term-text'>
-              The following decisions contain the keyword: {displayedTerm ? `"${displayedTerm}"` : ''}
-            </span>
-          </Container>
+          {( displayedTerm && displayedTerm !== '' ) && (
+            <Container className='mt-3 displayed-term-container'>
+              <span className='displayed-term-text'>
+                The following decisions contain the keyword: {displayedTerm ? `"${displayedTerm}"` : ''}
+              </span>
+            </Container>
+          )}
         </Container>
     )
 }
