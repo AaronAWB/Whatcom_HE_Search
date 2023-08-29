@@ -6,7 +6,7 @@ import '@Styles/results.css'
 function Results({ searchResults }) {
 
   const renderSearchResults = () => {
-    return searchResults.map((result, index) => {
+    return searchResults.map((result) => {
         const name = result.case_name
         const link = result.link
         const hearingDate = formatDate(result.hearing_date)
@@ -14,7 +14,7 @@ function Results({ searchResults }) {
         const hearingExaminer = result.hearing_examiner
         
       return (
-        <tr key={index} className='shadow-sm'>
+        <tr key={link} className='shadow-sm'>
           <td>{name}</td>
           <td className={hearingExaminer === 'Unable to locate.' ? 'unable-to-locate' : ''}>{hearingExaminer}</td>
           <td className={hearingDate === 'Not listed.' ? 'not-listed' : ''}>{hearingDate}</td>
@@ -32,8 +32,8 @@ function Results({ searchResults }) {
   return(
     <Container className='mt-5'>
       <Table striped hover className='shadow-sm'>
-        <thead>
-          <tr>
+        <thead className='table-header'>
+          <tr className='table-header'>
             <th>Case Name</th>
             <th>Hearing Examiner</th>
             <th>Hearing Date</th>

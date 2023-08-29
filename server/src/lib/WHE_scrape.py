@@ -1,16 +1,22 @@
 import requests
 import re
+import io
+import pytesseract
 
 from PyPDF2 import PdfReader
 from bs4 import BeautifulSoup
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from datetime import datetime
+from PIL import Image
+
+
 
 class WHE_Scrape:
 
     def __init__(self):
         self.URL = "https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43"
+        self.base_url = "https://wa-whatcomcounty.civicplus.com/"
         self.html = requests.get(self.URL).text
         self.soup = BeautifulSoup(self.html, 'html.parser')
         
@@ -50,8 +56,7 @@ class WHE_Scrape:
         return pdf_data
     
     def extract_text(self, link):
-        base_url = "https://wa-whatcomcounty.civicplus.com/"
-        complete_link = base_url + link
+        complete_link = self.base_url + link
         response = requests.get(complete_link)
         pdf_content = response.content
         
@@ -104,16 +109,26 @@ class WHE_Scrape:
             name_match = match.group(2)
             hearing_examiner_name = name_match.title().replace('.', '').replace('\n', '').replace('_', '').strip()
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
-        
-        elif 'Rajeev Majumdar' in pdf_text:
-            return {'hearing_examiner_name': 'Rajeev Majumdar'}
-        
-        elif 'Michael Bobbink' in pdf_text:
-            return {'hearing_examiner_name': 'Michael Bobbink'}
-            
+             
         else:
             return {'hearing_examiner_name': 'Unable to locate.'}
-                            
+        
+    def extract_text_from_img(self, link):
+        complete_link = self.base_url + link
+        response = requests.get(complete_link)
+        print(type(response))
+        print(type(response.content))
+        path_to_tesseract = r'/opt/homebrew/bin/tesseract'
+        print(type(io.BytesIO(response.content)))
+        img = Image.open(io.BytesIO(response.content))
+        pytesseract.pytesseract.tesseract_cmd = path_to_tesseract
+        print(type(img))
+        
+        extracted_text = pytesseract.image_to_string(img)
+        print(extracted_text)
+        
+        return extracted_text
+
     def search_keyword(self, keyword):
         
         print(f'keyword: {keyword}')

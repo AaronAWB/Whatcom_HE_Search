@@ -1,3 +1,8 @@
+.table-header th {
+  background-color: #2b4863 !important;
+  color: #dae4ee !important;
+}
+
 .unable-to-locate {
   font-style: italic;
 }
