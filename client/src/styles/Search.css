@@ -1,13 +1,13 @@
 .search-btn {
-  background-color: #c47518 !important;
+  background-color: #e1863a  !important;
   color: white !important;
-  border: none !important;
+  border: 1px solid #f1a05e !important;
 }
 
 .search-btn:hover {
-  background-color: #e1863a !important;
+  background-color: #f1a05e !important;
   color: white !important;
-  border: none !important;
+  border: 1px solid #f1a05e !important;
 }
 
 .displayed-term-container {
