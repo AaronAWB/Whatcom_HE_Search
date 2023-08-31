@@ -15,9 +15,9 @@ from PIL import Image
 class WHE_Scrape:
 
     def __init__(self):
-        self.URL = "https://wa-whatcomcounty.civicplus.com/Archive.aspx?AMID=43"
         self.base_url = "https://wa-whatcomcounty.civicplus.com/"
-        self.html = requests.get(self.URL).text
+        self.archive_url = self.base_url + "Archive.aspx?AMID=43"
+        self.html = requests.get(self.archive_url).text
         self.soup = BeautifulSoup(self.html, 'html.parser')
         
     def retrieve_pdf_data(self):
@@ -145,12 +145,10 @@ class WHE_Scrape:
     
     def get_metadata(self):
             
-        base_url = "https://wa-whatcomcounty.civicplus.com/"
-        
         try:
             # Creates a PyPDF2 reader object to extract the metadata
             link = 'Archive.aspx?ADID=15523'
-            complete_link = base_url + link
+            complete_link = self.base_url + link
             response = requests.get(complete_link)
             pdf_content = response.content
 

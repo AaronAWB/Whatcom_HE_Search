@@ -15,7 +15,7 @@ function Results({ searchResults }) {
         
       return (
         <tr key={link} className='shadow-sm'>
-          <td>{name}</td>
+          <td className='case-name'>{name}</td>
           <td className={hearingExaminer === 'Unable to locate.' ? 'unable-to-locate' : ''}>{hearingExaminer}</td>
           <td className={hearingDate === 'Not listed.' ? 'not-listed' : ''}>{hearingDate}</td>
           <td className={decisionDate === 'Not listed.' ? 'not-listed' : ''}>{decisionDate}</td>

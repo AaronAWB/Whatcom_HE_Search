@@ -3,6 +3,10 @@
   color: #dae4ee !important;
 }
 
+.case-name {
+  font-weight: bold;
+}
+
 .unable-to-locate {
   font-style: italic;
 }
