@@ -1,3 +1,15 @@
+.search-btn {
+  background-color: #c47518 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.search-btn:hover {
+  background-color: #e1863a !important;
+  color: white !important;
+  border: none !important;
+}
+
 .displayed-term-container {
   display: flex !important;
   width: 60% !important;
