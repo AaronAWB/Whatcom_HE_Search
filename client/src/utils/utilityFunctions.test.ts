@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { formatDate } from '@Utils/utilityFunctions'
+import { formatDate } from '@/utils/utilityFunctions'
 
 test('formats a date from MM.DD.YYYY to Month DD, YYYY', () => {
   const date = '8.25.2023'

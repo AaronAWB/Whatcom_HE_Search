@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import { Container, Form, Button } from 'react-bootstrap';
@@ -10,7 +10,7 @@ const Search = ({ setSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [displayedTerm, setDisplayedTerm] = useState("");
 
-  const handleSearch = async (e) => {
+  const handleSearch = async (e: any) => {
     e.preventDefault();
     setDisplayedTerm(searchTerm);
 

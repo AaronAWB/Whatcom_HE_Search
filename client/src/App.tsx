@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Search from './components/Search';
-import Results from './components/Results';
+import Search from '@/components/search';
+import Results from '@/components/results'
 
 function App() {
 

@@ -1,5 +1,5 @@
 import { Container, Table } from 'react-bootstrap'
-import { formatDate } from '@Utils/utilityFunctions'
+import { formatDate } from '@/utils/utilityFunctions'
 import '@Styles/results.css'
 
 

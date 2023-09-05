@@ -1,5 +1,5 @@
 
-const formatDate = (date) => {
+const formatDate = (date: string) => {
 
   const isValidFormat = /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(date);
 
