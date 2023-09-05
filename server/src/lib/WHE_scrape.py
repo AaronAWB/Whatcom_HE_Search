@@ -98,7 +98,10 @@ class WHE_Scrape:
                     try:
                         date_obj = datetime.strptime(date, 'm.d.%Y')
                     except ValueError:
-                        return date
+                        try:
+                            date_obj = datetime.strptime(date, '%m.%d.%Y')
+                        except ValueError:
+                            return date
             
         formatted_date = date_obj.strftime('%B %d, %Y')
         return formatted_date
