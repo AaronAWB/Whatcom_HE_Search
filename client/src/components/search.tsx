@@ -7,8 +7,8 @@ import '@Styles/Search.css';
 
 const Search = ({ setSearchResults }) => {
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [displayedTerm, setDisplayedTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [displayedTerm, setDisplayedTerm] = useState<string>("");
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
