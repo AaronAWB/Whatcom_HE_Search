@@ -2,8 +2,16 @@ import { Container, Table } from 'react-bootstrap'
 import { formatDate } from '@/utils/utilityFunctions'
 import '@Styles/results.css'
 
-
-function Results({ searchResults }) {
+interface ResultsProps {
+  searchResults: {
+    case_name: string;
+    link: string;
+    hearing_date: string;
+    decision_date: string;
+    hearing_examiner: string;
+  }[];
+}
+function Results({ searchResults }: ResultsProps) {
 
   const renderSearchResults = () => {
     return searchResults.map((result) => {

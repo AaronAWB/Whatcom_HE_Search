@@ -5,7 +5,12 @@ import { Container, Form, Button } from 'react-bootstrap';
 
 import '@Styles/Search.css';
 
-const Search = ({ setSearchResults }) => {
+interface SearchProps {
+  setSearchResults: (results: any[]) => void;
+}
+
+
+const Search = ({ setSearchResults }: SearchProps) => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [displayedTerm, setDisplayedTerm] = useState<string>("");

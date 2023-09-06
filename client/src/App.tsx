@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Search from '@/components/search';
 import Results from '@/components/results'
 
+interface SearchResult {
+  case_name: string;
+  link: string;
+  hearing_date: string;
+  decision_date: string;
+  hearing_examiner: string;
+}
+
 function App() {
 
-  const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    console.log('searchResults: ', searchResults);
-  }, [searchResults]);
-  
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   return (
     <>
