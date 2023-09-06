@@ -15,4 +15,8 @@
   font-style: italic;
 }
 
+.link-text {
+  text-decoration: none !important;
+}
+
 

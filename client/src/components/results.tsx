@@ -28,7 +28,7 @@ function Results({ searchResults }: ResultsProps) {
           <td className={hearingDate === 'Not listed.' ? 'not-listed' : ''}>{hearingDate}</td>
           <td className={decisionDate === 'Not listed.' ? 'not-listed' : ''}>{decisionDate}</td>
           <td>
-            <a href={'https://wa-whatcomcounty.civicplus.com/' + link} >
+            <a href={'https://wa-whatcomcounty.civicplus.com/' + link} className='link-text' >
               PDF
             </a>
           </td>
