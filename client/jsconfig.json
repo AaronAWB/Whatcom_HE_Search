@@ -9,6 +9,6 @@
             "@Utils/*": ["/src/utils/*"]
         }
     },
-    "include": ["./src"],
+    "include": ["./src", "tsconfig.json"],
     "exclude": ["build, node_modules"]
 }

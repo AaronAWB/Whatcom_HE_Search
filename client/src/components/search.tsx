@@ -50,13 +50,13 @@ const Search = ({ setSearchResults }: SearchProps) => {
               Search
             </Button>
           </Form>
-          {( displayedTerm && displayedTerm !== '' ) && (
             <Container className='mt-3 displayed-term-container'>
+              {displayedTerm &&  
               <span className='displayed-term-text'>
-                The following decisions contain the keyword: {displayedTerm ? `"${displayedTerm}"` : ''}
+                The following decisions contain the keyword: {`"${displayedTerm}"`}
               </span>
+              }
             </Container>
-          )}
         </Container>
     )
 }
