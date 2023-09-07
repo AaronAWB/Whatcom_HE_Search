@@ -51,11 +51,9 @@ const Search = ({ setSearchResults }: SearchProps) => {
             </Button>
           </Form>
             <Container className='mt-3 displayed-term-container'>
-              {displayedTerm &&  
-              <span className='displayed-term-text'>
+              <span className={`displayed-term-text ${displayedTerm ? 'visible-text' : 'hidden-text'}`}>
                 The following decisions contain the keyword: {`"${displayedTerm}"`}
               </span>
-              }
             </Container>
         </Container>
     )
