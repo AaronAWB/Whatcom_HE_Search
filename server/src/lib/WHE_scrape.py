@@ -107,7 +107,7 @@ class WHE_Scrape:
         return formatted_date
 
     def extract_hearing_examiner(self, pdf_text):
-        pattern = r"DATED this [^\n]*?(\d{1,2}(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.])[\s\S]*?([\w\s.]+),"
+        pattern = r"DATED this [^\n]*?(\d{1,2}[\s\S]*?(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.])[\s\S]*?([\w\s.]+),"
         match = re.search(pattern, pdf_text, re.IGNORECASE)
         
         if match:
