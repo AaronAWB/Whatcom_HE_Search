@@ -1,8 +1,6 @@
 import os
 import requests
 import re
-import io
-import pytesseract
 import ocrmypdf
 
 from PyPDF2 import PdfReader
@@ -10,8 +8,6 @@ from bs4 import BeautifulSoup
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from datetime import datetime
-from PIL import Image
-
 
 
 class WHE_Scrape:
@@ -39,6 +35,8 @@ class WHE_Scrape:
                 for pdf_link in link_list:
                     if pdf_link.startswith('Archive.aspx?ADID'):
                         pdf_text = self.extract_text(pdf_link)
+                        if not pdf_text or pdf_text == 'Non-searchable PDF.': 
+                            pdf_text = self.convert_unsearchable_pdf(pdf_link)
 
                         extracted_dates = self.extract_date(date)
                         hearing_date = extracted_dates['hearingDate']
@@ -121,22 +119,6 @@ class WHE_Scrape:
         else:
             return {'hearing_examiner_name': 'Unable to locate.'}
         
-    def extract_text_from_img(self, link):
-        complete_link = self.base_url + link
-        response = requests.get(complete_link)
-        print(type(response))
-        print(type(response.content))
-        path_to_tesseract = r'/opt/homebrew/bin/tesseract'
-        print(type(io.BytesIO(response.content)))
-        img = Image.open(io.BytesIO(response.content))
-        pytesseract.pytesseract.tesseract_cmd = path_to_tesseract
-        print(type(img))
-        
-        extracted_text = pytesseract.image_to_string(img)
-        print(extracted_text)
-        
-        return extracted_text
-
     def search_keyword(self, keyword):
         
         print(f'keyword: {keyword}')
@@ -167,27 +149,41 @@ class WHE_Scrape:
             print("No metadata found.")     
 
     def convert_unsearchable_pdf(self, link):
-        complete_link = self.base_url + link
-        response = requests.get(complete_link)
-        
-        if response.status_code == 200:
-            with open('input.pdf', 'wb') as f:
-                f.write(response.content)
-        else:
-            print(f"Failed to retrieve PDF, status code: {response.status_code}")
+            try:
+                complete_link = self.base_url + link
+                response = requests.get(complete_link)
 
-        input_file = 'input.pdf'
-        output_file = 'output.pdf'
+                directory = "/tmp"
+                os.makedirs(directory, exist_ok=True)
 
-        ocrmypdf.ocr(input_file, output_file, force_ocr=True)
+                input_file = os.path.join(directory, 'input.pdf')
+                output_file = os.path.join(directory, 'output.pdf')
+                
+                if response.status_code == 200:
+                    with open('input.pdf', 'wb') as f:
+                        f.write(response.content)
+                else:
+                    print(f"Failed to retrieve PDF, status code: {response.status_code}")
 
-        with open(output_file, 'rb') as f:
-            pdf_reader =  PdfReader(f)
-            extracted_text=""
-            for page_num in range (pdf_reader.numPages):
-                page = pdf_reader.getPage(page_num)
-                text += page.extractText()
- 
-        return extracted_text       
+                input_file = 'input.pdf'
+                output_file = 'output.pdf'
+
+                ocrmypdf.ocr(input_file, output_file, force_ocr=True)
+
+                with open(output_file, 'rb') as f:
+                    reader = PdfReader(f)
+                    extracted_text=""
+                    for page_num in range (len(reader.pages)):
+                        page = reader.pages[page_num]
+                        extracted_text += page.extract_text()
+                
+                os.remove(input_file)
+                os.remove(output_file)
+    
+                return extracted_text
+                
+            except Exception as e:
+                print(f"Error converting PDF{link}: {e}")
+                return f"Error converting non-searchable PDF{link}"    
 
 whe_scrape = WHE_Scrape()
