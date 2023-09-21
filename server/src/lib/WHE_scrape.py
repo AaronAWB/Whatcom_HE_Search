@@ -1,7 +1,9 @@
+import os
 import requests
 import re
 import io
 import pytesseract
+import ocrmypdf
 
 from PyPDF2 import PdfReader
 from bs4 import BeautifulSoup
@@ -162,6 +164,17 @@ class WHE_Scrape:
             metadata = pdf_reader.metadata
             return metadata
         except:
-            print("No metadata found.")            
+            print("No metadata found.")     
+
+    def convert_unreadable_pdf(self, link):
+        complete_link = self.base_url + link
+        response = requests.get(complete_link)
+        pdf_content = response.content
+        
+        text = extract_text(BytesIO(pdf_content)).strip()
+        normalized_text = ' '.join(text.split())
+        extracted_text = normalized_text.lower()
+        
+        return extracted_text       
 
 whe_scrape = WHE_Scrape()
