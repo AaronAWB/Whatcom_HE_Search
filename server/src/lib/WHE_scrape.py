@@ -166,15 +166,28 @@ class WHE_Scrape:
         except:
             print("No metadata found.")     
 
-    def convert_unreadable_pdf(self, link):
+    def convert_unsearchable_pdf(self, link):
         complete_link = self.base_url + link
         response = requests.get(complete_link)
-        pdf_content = response.content
         
-        text = extract_text(BytesIO(pdf_content)).strip()
-        normalized_text = ' '.join(text.split())
-        extracted_text = normalized_text.lower()
-        
+        if response.status_code == 200:
+            with open('input.pdf', 'wb') as f:
+                f.write(response.content)
+        else:
+            print(f"Failed to retrieve PDF, status code: {response.status_code}")
+
+        input_file = 'input.pdf'
+        output_file = 'output.pdf'
+
+        ocrmypdf.ocr(input_file, output_file, force_ocr=True)
+
+        with open(output_file, 'rb') as f:
+            pdf_reader =  PdfReader(f)
+            extracted_text=""
+            for page_num in range (pdf_reader.numPages):
+                page = pdf_reader.getPage(page_num)
+                text += page.extractText()
+ 
         return extracted_text       
 
 whe_scrape = WHE_Scrape()
