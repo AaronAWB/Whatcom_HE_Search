@@ -114,6 +114,8 @@ class WHE_Scrape:
             date = match.group(1)
             name_match = match.group(2)
             hearing_examiner_name = name_match.title().replace('.', '').replace('\n', '').replace('_', '').strip()
+            if hearing_examiner_name.length > 50:
+                hearing_examiner_name = 'Unable to locate.'
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
              
         else:
@@ -149,6 +151,7 @@ class WHE_Scrape:
             print("No metadata found.")     
 
     def convert_unsearchable_pdf(self, link):
+            print(f'Converting non-searchable PDF: {link}')
             try:
                 complete_link = self.base_url + link
                 response = requests.get(complete_link)
