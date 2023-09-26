@@ -9,52 +9,92 @@ interface SearchProps {
   setSearchResults: (results: any[]) => void;
 }
 
-
 const Search = ({ setSearchResults }: SearchProps) => {
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [hearingExaminer, setHearingExaminer] = useState<string>("");
-  const [hearingDate, setHearingDate] = useState<string>("");
-  const [decisionDate, setDecisionDate] = useState<string>("");
-  const [displayedTerm, setDisplayedTerm] = useState<string>("");
+  const [searchParameters, setSearchParameters] = useState<{
+    keyword: string;
+    examiner: string;
+    hearingDate: string;
+    decisionDate: string;
+  }>({
+    keyword: '',
+    examiner: '',
+    hearingDate: '',
+    decisionDate: '',
+  });
+  const [displayedSearch, setDisplayedSearch] = useState<string>("");
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setSearchParameters({
+      ...searchParameters,
+      [name]: value,
+    });
+  }
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    setDisplayedTerm(searchTerm);
+    
 
     try {
-      const res = await axios.get(`/api/search/${searchTerm}`)
+      const res = await axios.get(`/api/search}`)
       const data = res.data;
       const results = data.search_results;
       setSearchResults(results);
     } catch (err) {
       console.log(err);
     }
-    setSearchTerm("");
+    setSearchParameters({
+      ...searchParameters,
+    })
   }
+
+
 
     return (
 
       <Container className='shadow-sm'>
-        <Form>
+        <Form onSubmit={handleSearch}>
           <Row className='mb-3 mt-3'>
             <Form.Group as={Col} md='6'>
               <Form.Label>Keyword:</Form.Label>
-              <Form.Control type='text' placeholder='Filter decisions by keyword...' className='shadow-sm' />
+              <Form.Control 
+                type='text' 
+                placeholder='Filter decisions by keyword...' 
+                className='shadow-sm' 
+                value={searchParameters.keyword}
+                onChange={handleInputChange}
+                />
             </Form.Group>
             <Form.Group as={Col} md='6'>
               <Form.Label>Hearing Examiner:</Form.Label>
-              <Form.Control type='text' placeholder='Filter decisions by Hearing Examiner...' className='shadow-sm' />
+              <Form.Control 
+                type='text' 
+                placeholder='Filter decisions by Hearing Examiner...' 
+                className='shadow-sm' 
+                value={searchParameters.examiner}
+                onChange={handleInputChange}
+                />
             </Form.Group>
           </Row>
           <Row className='mb-3'>
             <Form.Group as={Col} md='6'>
               <Form.Label>Hearing Date:</Form.Label>
-              <Form.Control type='date' placeholder='Filter decisions by hearing date...' className='shadow-sm' />
+              <Form.Control 
+                type='date' 
+                className='shadow-sm'
+                value={searchParameters.hearingDate}
+                onChange={handleInputChange} 
+                />
             </Form.Group>
             <Form.Group as={Col} md='6'>
               <Form.Label>Decision Date:</Form.Label>
-              <Form.Control type='date' placeholder='Filter decisions by decision date...' className='shadow-sm' />
+              <Form.Control 
+                type='date' 
+                className='shadow-sm'
+                value={searchParameters.decisionDate}
+                onChange={handleInputChange}  
+                />
             </Form.Group>
           </Row>
           <Button 
