@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Resource
-from sqlalchemy import or_
+from sqlalchemy import and_
 
 from src import api
 from src.lib.WHE_scrape import whe_scrape
@@ -14,12 +14,19 @@ class Search(Resource):
         hearing_date = request.args.get('hearingDate')
         decision_date = request.args.get('decisionDate')
 
+        filters = []
+        if keyword:
+          filters.append(Decision.text.ilike(f'%{keyword}%'))
+        if examiner:
+          filters.append(Decision.hearing_examiner.ilike(f'%{examiner}%'))
+        if hearing_date:
+          filters.append(Decision.hearing_date.ilike(f'%{hearing_date}%'))
+        if decision_date:
+          filters.append(Decision.decision_date.ilike(f'%{decision_date}%'))
+        
+        search_results = Decision.query.filter(and_(*filters))
+        print(search_results)
 
-
-
-
-
-        search_results = Decision.query.filter(or_(Decision.text.ilike(f'%{keyword}%')))
         result_list = [{
             'id': decision.id,
             'case_name': decision.case_name,

@@ -34,6 +34,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
   const handleSearch = async (e: any) => {
     e.preventDefault();
     const queryString = new URLSearchParams(searchParameters).toString();
+    console.log(queryString);
 
     try {
       const res = await axios.get(`/api/search?${queryString}`)
@@ -52,7 +53,8 @@ const Search = ({ setSearchResults }: SearchProps) => {
           <Row className='mb-3 mt-3'>
             <Form.Group as={Col} md='6' className='mt-2'>
               <Form.Label>Keyword:</Form.Label>
-              <Form.Control 
+              <Form.Control
+                name='keyword' 
                 type='text' 
                 placeholder='Filter decisions by keyword...' 
                 value={searchParameters.keyword}
@@ -62,6 +64,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
             <Form.Group as={Col} md='6' className='mt-2'>
               <Form.Label>Hearing Examiner:</Form.Label>
               <Form.Control 
+                name='examiner'
                 type='text' 
                 placeholder='Filter decisions by Hearing Examiner...' 
                 value={searchParameters.examiner}
@@ -72,7 +75,8 @@ const Search = ({ setSearchResults }: SearchProps) => {
           <Row className='mb-3'>
             <Form.Group as={Col} md='6'>
               <Form.Label>Hearing Date:</Form.Label>
-              <Form.Control 
+              <Form.Control
+                name='hearingDate' 
                 type='date' 
                 value={searchParameters.hearingDate}
                 onChange={handleInputChange} 
@@ -81,6 +85,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
             <Form.Group as={Col} md='6'>
               <Form.Label>Decision Date:</Form.Label>
               <Form.Control 
+                name='decisionDate'
                 type='date' 
                 value={searchParameters.decisionDate}
                 onChange={handleInputChange}  
@@ -96,38 +101,6 @@ const Search = ({ setSearchResults }: SearchProps) => {
           </Button>
         </Form>
       </Container>
-
-
-
-
-
-
-
-        // <Container className='show-sm mt-5'>
-        //   <Form className='d-flex' onSubmit={handleSearch}>
-        //     <Form.Control
-        //       type='search'
-        //       placeholder='Search Hearing Examiner decisions by keyword...'
-        //       className='searchbar me-2 shadow-sm'
-        //       aria-label='Search'
-        //       onChange={(e) => setSearchTerm(e.target.value)}
-        //       value = {searchTerm}
-        //     >
-        //     </Form.Control>
-        //     <Button 
-        //       className='shadow-sm search-btn' 
-        //       variant='primary' 
-        //       type='submit'
-        //       >
-        //       Search
-        //     </Button>
-        //   </Form>
-        //     <Container className='mt-3 displayed-term-container'>
-        //       <span className={`displayed-term-text ${displayedTerm ? 'visible-text' : 'hidden-text'}`}>
-        //         The following decisions contain the keyword: {`"${displayedTerm}"`}
-        //       </span>
-        //     </Container>
-        // </Container>
     )
 }
 
