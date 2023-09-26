@@ -24,4 +24,20 @@ const formatDate = (date: string) => {
   return date
 }
 
-export { formatDate }
+const formatInputFieldDate = (fieldDate: string) => {
+  const date = new Date(fieldDate);
+
+  const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  const day = date.getDate();
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month} ${day}, ${year}`;
+}
+export { formatDate, formatInputFieldDate }

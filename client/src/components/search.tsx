@@ -33,6 +33,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
+
     const queryString = new URLSearchParams(searchParameters).toString();
     console.log(queryString);
 
@@ -43,7 +44,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
       setSearchResults(results);
     } catch (err) {
       console.log(err);
-    }
+    };
   }
 
     return (

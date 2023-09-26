@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import request
 from flask_restx import Resource
 from sqlalchemy import and_
@@ -20,12 +21,14 @@ class Search(Resource):
         if examiner:
           filters.append(Decision.hearing_examiner.ilike(f'%{examiner}%'))
         if hearing_date:
+          hearing_date = datetime.strptime(hearing_date, '%Y-%m-%d').strftime('%B %d, %Y')
           filters.append(Decision.hearing_date.ilike(f'%{hearing_date}%'))
         if decision_date:
+          decision_date = datetime.strptime(decision_date, '%Y-%m-%d').strftime('%B %d, %Y')
           filters.append(Decision.decision_date.ilike(f'%{decision_date}%'))
         
         search_results = Decision.query.filter(and_(*filters))
-        print(search_results)
+        
 
         result_list = [{
             'id': decision.id,
