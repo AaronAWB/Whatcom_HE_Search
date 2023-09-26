@@ -33,10 +33,10 @@ const Search = ({ setSearchResults }: SearchProps) => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    
+    const queryString = new URLSearchParams(searchParameters).toString();
 
     try {
-      const res = await axios.get(`/api/search}`)
+      const res = await axios.get(`/api/search?${queryString}`)
       const data = res.data;
       const results = data.search_results;
       setSearchResults(results);
@@ -47,7 +47,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
 
     return (
 
-      <Container className='shadow-sm'>
+      <Container className='shadow-sm search-container mt-5'>
         <Form onSubmit={handleSearch}>
           <Row className='mb-3 mt-3'>
             <Form.Group as={Col} md='6' className='mt-2'>
@@ -88,7 +88,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
             </Form.Group>
           </Row>
           <Button 
-              className='shadow-sm search-btn mb-3' 
+              className='shadow-sm search-btn mb-3 mt-2' 
               variant='primary' 
               type='submit'
               >

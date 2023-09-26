@@ -39,7 +39,7 @@ function Results({ searchResults }: ResultsProps) {
 
   return(
     <Container className='mt-5'>
-      <Table striped hover className='shadow-sm'>
+      <Table striped hover className='shadow-sm p-2'>
         <thead className='table-header'>
           <tr className='table-header'>
             <th>Case Name</th>

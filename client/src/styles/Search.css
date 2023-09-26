@@ -1,7 +1,12 @@
+.search-container {
+  width: 60% !important;
+}
+
 .search-btn {
   background-color: #e1863a  !important;
   color: white !important;
   border: 1px solid #f1a05e !important;
+  width: 100%;
 }
 
 .search-btn:hover {

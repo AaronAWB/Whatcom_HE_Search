@@ -1,3 +1,4 @@
+from flask import request
 from flask_restx import Resource
 from sqlalchemy import or_
 
@@ -5,9 +6,19 @@ from src import api
 from src.lib.WHE_scrape import whe_scrape
 from src.models.decisions import Decision
 
-@api.route('/search/<keyword>')
+@api.route('/search')
 class Search(Resource):
-    def get(self, keyword):
+    def get(self):
+        keyword = request.args.get('keyword')
+        examiner = request.args.get('examiner')
+        hearing_date = request.args.get('hearingDate')
+        decision_date = request.args.get('decisionDate')
+
+
+
+
+
+
         search_results = Decision.query.filter(or_(Decision.text.ilike(f'%{keyword}%')))
         result_list = [{
             'id': decision.id,
