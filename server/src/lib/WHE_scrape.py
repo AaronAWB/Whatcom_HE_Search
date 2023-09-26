@@ -107,14 +107,21 @@ class WHE_Scrape:
         return formatted_date
 
     def extract_hearing_examiner(self, pdf_text):
-        pattern = r"DATED this [^\n]*?(\d{1,2}[\s\S]*?(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.])[\s\S]*?([\w\s.]+),"
-        match = re.search(pattern, pdf_text, re.IGNORECASE)
+
+        he_pattern = r"DATED this [^\n]*?(\d{1,2}[\s\S]*?(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.])[\s\S]*?([\w\s.]+),"
+        he_match = re.search(he_pattern, pdf_text, re.IGNORECASE)
+
+        committee_report_pattern = r"Report prepared for the Technical Review Committee by"
+        committee_report_match = re.search(committee_report_pattern, pdf_text, re.IGNORECASE)
+
+        if committee_report_match:
+            return {'hearing_examiner_name': 'Committee Report'}
         
-        if match:
-            date = match.group(1)
-            name_match = match.group(2)
+        elif he_match:
+            date = he_match.group(1)
+            name_match = he_match.group(2)
             hearing_examiner_name = name_match.title().replace('.', '').replace('\n', '').replace('_', '').strip()
-            if hearing_examiner_name.length > 50:
+            if len(hearing_examiner_name) > 50:
                 hearing_examiner_name = 'Unable to locate.'
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
              
