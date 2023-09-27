@@ -2,7 +2,7 @@ import { Container, Table } from 'react-bootstrap'
 import { formatDate } from '@/utils/utilityFunctions'
 import '@Styles/results.css'
 
-interface ResultsProps {
+interface Result {
   searchResults: {
     case_name: string;
     link: string;
@@ -11,13 +11,19 @@ interface ResultsProps {
     hearing_examiner: string;
   }[];
 }
+
+interface ResultsProps {
+  searchResults: Result['searchResults'];
+  hasSearched: boolean;
+}
+
 function Results({ searchResults, hasSearched }: ResultsProps) {
 
   const renderSearchResults = () => {
 
     if (hasSearched && searchResults.length === 0) return (
       <tr>
-        <td colSpan={5} className='no-results'>No results found.</td>
+        <td colSpan={5} className='no-results'>No decisions matching those criteria.</td>
       </tr>
     )
 
