@@ -14,6 +14,9 @@ class Search(Resource):
         examiner = request.args.get('examiner')
         hearing_date = request.args.get('hearingDate')
         decision_date = request.args.get('decisionDate')
+        decision_month = request.args.get('month')
+        decision_year = request.args.get('year')
+
 
         filters = []
         if keyword:
@@ -26,6 +29,10 @@ class Search(Resource):
         if decision_date:
           decision_date = datetime.strptime(decision_date, '%Y-%m-%d').strftime('%B %d, %Y')
           filters.append(Decision.decision_date.ilike(f'%{decision_date}%'))
+        if decision_month:
+          filters.append(Decision.decision_date.ilike(f'%{decision_month}%'))
+        if decision_year:
+          filters.append(Decision.decision_date.ilike(f'%{decision_year}%'))
         
         search_results = Decision.query.filter(and_(*filters))
         
