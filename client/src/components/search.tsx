@@ -60,9 +60,17 @@ const Search = ({ setSearchResults }: SearchProps) => {
     return (
 
       <Container className='shadow-sm search-container mt-5'>
+        <div className='title-container mt-3'>
+          <h3 className='title'>
+            <span className='county-name'>
+              Whatcom County {''}
+            </span> 
+            Hearing Examiner Decision Search
+          </h3>
+        </div>
         <Form onSubmit={handleSearch}>
-          <Row className='mb-3 mt-3'>
-            <Form.Group as={Col} md='6' className='mt-2'>
+          <Row className='mb-3 mt-2'>
+            <Form.Group as={Col} md='6' className='mt-1'>
               <Form.Label>Keyword:</Form.Label>
               <Form.Control
                 name='keyword' 
@@ -72,7 +80,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
                 onChange={handleInputChange}
                 />
             </Form.Group>
-            <Form.Group as={Col} md='6' className='mt-2'>
+            <Form.Group as={Col} md='6' className='mt-1'>
               <Form.Label>Hearing Examiner:</Form.Label>
               <Form.Control 
                 name='examiner'

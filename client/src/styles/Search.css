@@ -3,6 +3,23 @@
   border: 1px solid lightgray !important;
 }
 
+.title-container {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.county-name {
+  color: #59b6a0 !important;
+  font-family: 'cursive' !important;
+}
+
+.title {
+  color: grey !important;
+  font-family: 'cursive' !important;
+}
+
 .search-btn {
   background-color: #e1863a  !important;
   color: white !important;
