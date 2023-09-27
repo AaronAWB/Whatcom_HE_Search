@@ -1,5 +1,6 @@
 .search-container {
   width: 60% !important;
+  border: 1px solid lightgray !important;
 }
 
 .search-btn {
@@ -13,6 +14,19 @@
   background-color: #f1a05e !important;
   color: white !important;
   border: 1px solid #f1a05e !important;
+}
+
+.clear-btn {
+  background-color: darkgray !important;
+  color: white !important;
+  border: 1px solid lightgrey !important;
+  width: 100%;
+}
+
+.clear-btn:hover {
+  background-color: lightgray !important;
+  color: white !important;
+  border: 1px solid lightgrey !important;
 }
 
 .displayed-term-container {

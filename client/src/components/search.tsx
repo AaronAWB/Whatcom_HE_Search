@@ -47,6 +47,16 @@ const Search = ({ setSearchResults }: SearchProps) => {
     };
   }
 
+  const onClick = async (e: any) => {
+    e.preventDefault();
+    setSearchParameters({
+      keyword: '',
+      examiner: '',
+      hearingDate: '',
+      decisionDate: '',
+    })
+  }
+
     return (
 
       <Container className='shadow-sm search-container mt-5'>
@@ -93,13 +103,26 @@ const Search = ({ setSearchResults }: SearchProps) => {
                 />
             </Form.Group>
           </Row>
-          <Button 
-              className='shadow-sm search-btn mb-3 mt-2' 
-              variant='primary' 
-              type='submit'
-              >
-              Search
-          </Button>
+          <Row>
+            <Form.Group as={Col} md='6'>
+              <Button 
+                  className='shadow-sm search-btn mb-3 mt-2' 
+                  variant='primary' 
+                  type='submit'
+                  >
+                  Search
+              </Button>
+            </Form.Group> 
+            <Form.Group as={Col} md='6'>
+              <Button 
+                  className='shadow-sm clear-btn mb-3 mt-2' 
+                  variant='primary' 
+                  onClick={onClick}
+                  >
+                  Clear
+              </Button>
+            </Form.Group>
+          </Row> 
         </Form>
       </Container>
     )
