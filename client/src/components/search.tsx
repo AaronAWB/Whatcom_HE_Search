@@ -17,11 +17,15 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
     examiner: string;
     hearingDate: string;
     decisionDate: string;
+    month: string;
+    year: string;
   }>({
     keyword: '',
     examiner: '',
     hearingDate: '',
     decisionDate: '',
+    month: '',
+    year: ''
   });
   
   const handleInputChange = (e: any) => {
@@ -56,6 +60,8 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
       examiner: '',
       hearingDate: '',
       decisionDate: '',
+      month: '',
+      year: ''
     })
   }
 
@@ -109,6 +115,39 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
                 name='decisionDate'
                 type='date' 
                 value={searchParameters.decisionDate}
+                onChange={handleInputChange}  
+                />
+            </Form.Group>
+          </Row>
+          <Row className='mb-3'>
+            <Form.Group as={Col} md='6'>
+              <Form.Label className='form-label'>Month:</Form.Label>
+              <Form.Select 
+                name='month'
+                value={searchParameters.month}
+                onChange={handleInputChange}
+                >
+                  <option value=''>Select Month</option>
+                  <option value='01'>January</option>
+                  <option value='02'>February</option>
+                  <option value='03'>March</option>
+                  <option value='04'>April</option>
+                  <option value='05'>May</option>
+                  <option value='06'>June</option>
+                  <option value='07'>July</option>
+                  <option value='08'>August</option>
+                  <option value='09'>September</option>
+                  <option value='10'>October</option>
+                  <option value='11'>November</option>
+                  <option value='12'>December</option>
+              </Form.Select>
+</Form.Group>
+            <Form.Group as={Col} md='6'>
+              <Form.Label className='form-label'>Year:</Form.Label>
+              <Form.Control 
+                name='year'
+                type='text' 
+                value={searchParameters.year}
                 onChange={handleInputChange}  
                 />
             </Form.Group>

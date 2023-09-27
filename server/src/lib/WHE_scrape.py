@@ -118,6 +118,8 @@ class WHE_Scrape:
             if len(hearing_examiner_name) > 50:
                 hearing_examiner_name = 'Unable to locate.'
             return {'date': date, 'hearing_examiner_name': hearing_examiner_name}
+        else:
+            return {'date': None, 'hearing_examiner_name': 'Unable to locate.'}
                      
     def search_keyword(self, keyword):
         
