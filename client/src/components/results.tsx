@@ -11,9 +11,16 @@ interface ResultsProps {
     hearing_examiner: string;
   }[];
 }
-function Results({ searchResults }: ResultsProps) {
+function Results({ searchResults, hasSearched }: ResultsProps) {
 
   const renderSearchResults = () => {
+
+    if (hasSearched && searchResults.length === 0) return (
+      <tr>
+        <td colSpan={5} className='no-results'>No results found.</td>
+      </tr>
+    )
+
     return searchResults.map((result) => {
         const name = result.case_name
         const link = result.link

@@ -13,11 +13,12 @@ interface SearchResult {
 function App() {
 
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [hasSearched, setHasSearched] = useState<boolean>(false);
 
   return (
     <>
-      <Search setSearchResults={setSearchResults} />
-      <Results searchResults={searchResults} />
+      <Search setSearchResults={setSearchResults} setHasSearched={setHasSearched} />
+      <Results searchResults={searchResults} hasSearched={hasSearched} />
     </>
   )
 }

@@ -7,9 +7,10 @@ import '@Styles/Search.css';
 
 interface SearchProps {
   setSearchResults: (results: any[]) => void;
+  setHasSearched: (hasSearched: boolean) => void;
 }
 
-const Search = ({ setSearchResults }: SearchProps) => {
+const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
 
   const [searchParameters, setSearchParameters] = useState<{
     keyword: string;
@@ -45,6 +46,7 @@ const Search = ({ setSearchResults }: SearchProps) => {
     } catch (err) {
       console.log(err);
     };
+    setHasSearched(true);
   }
 
   const onClick = async (e: any) => {
