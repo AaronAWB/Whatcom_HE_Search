@@ -73,7 +73,7 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
         <Form onSubmit={handleSearch}>
           <Row className='mb-3 mt-2'>
             <Form.Group as={Col} md='6' className='mt-1'>
-              <Form.Label>Keyword:</Form.Label>
+              <Form.Label className='form-label'>Keyword:</Form.Label>
               <Form.Control
                 name='keyword' 
                 type='text' 
@@ -83,7 +83,7 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
                 />
             </Form.Group>
             <Form.Group as={Col} md='6' className='mt-1'>
-              <Form.Label>Hearing Examiner:</Form.Label>
+              <Form.Label className='form-label'>Hearing Examiner:</Form.Label>
               <Form.Control 
                 name='examiner'
                 type='text' 
@@ -95,7 +95,7 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
           </Row>
           <Row className='mb-3'>
             <Form.Group as={Col} md='6'>
-              <Form.Label>Hearing Date:</Form.Label>
+              <Form.Label className='form-label'>Hearing Date:</Form.Label>
               <Form.Control
                 name='hearingDate' 
                 type='date' 
@@ -104,7 +104,7 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
                 />
             </Form.Group>
             <Form.Group as={Col} md='6'>
-              <Form.Label>Decision Date:</Form.Label>
+              <Form.Label className='form-label'>Decision Date:</Form.Label>
               <Form.Control 
                 name='decisionDate'
                 type='date' 

@@ -23,7 +23,7 @@ function Results({ searchResults, hasSearched }: ResultsProps) {
 
     if (hasSearched && searchResults.length === 0) return (
       <tr>
-        <td colSpan={5} className='no-results'>No decisions matching those criteria.</td>
+        <td colSpan={5} className='no-results'>No decisions matching those search criteria.</td>
       </tr>
     )
 

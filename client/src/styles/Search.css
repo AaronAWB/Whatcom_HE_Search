@@ -20,6 +20,10 @@
   font-family: 'cursive' !important;
 }
 
+.form-label {
+  font-weight: 450 !important;
+}
+
 .search-btn {
   background-color: #e1863a  !important;
   color: white !important;
