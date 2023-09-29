@@ -11,10 +11,11 @@ from .routes.db_admin_routes import UpdateDB, ExtractTextFromImage
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 def create_app():
-    app = Flask(__name__, static_url_path='/', static_folder='../../client/dist')
+    application = Flask(__name__, static_url_path='/', static_folder='../../client/dist')
+    app = application
 
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_CONNECTION_STRING')
-    print(print(os.getenv('DB_CONNECTION_STRING')))
+    
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<string:path>')
