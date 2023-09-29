@@ -121,13 +121,13 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
           </Row>
           <Row className='mb-3'>
             <Form.Group as={Col} md='6'>
-              <Form.Label className='form-label'>Month:</Form.Label>
+              <Form.Label className='form-label'>Decision Month:</Form.Label>
               <Form.Select 
                 name='month'
                 value={searchParameters.month}
                 onChange={handleInputChange}
                 >
-                  <option value=''>Select Month</option>
+                  <option value=''>Filter by month...</option>
                   <option value='January'>January</option>
                   <option value='February'>February</option>
                   <option value='March'>March</option>
@@ -141,12 +141,13 @@ const Search = ({ setSearchResults, setHasSearched }: SearchProps) => {
                   <option value='November'>November</option>
                   <option value='December'>December</option>
               </Form.Select>
-</Form.Group>
+            </Form.Group>
             <Form.Group as={Col} md='6'>
-              <Form.Label className='form-label'>Year:</Form.Label>
+              <Form.Label className='form-label'>Decision Year:</Form.Label>
               <Form.Control 
                 name='year'
-                type='text' 
+                type='text'
+                placeholder='Filter by year...' 
                 value={searchParameters.year}
                 onChange={handleInputChange}  
                 />

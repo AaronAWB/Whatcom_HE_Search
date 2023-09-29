@@ -108,7 +108,7 @@ class WHE_Scrape:
 
     def extract_hearing_examiner(self, pdf_text):
 
-        he_pattern = r"DATED this [^\n]*?(\d{1,2}[\s\S]*?(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.])[\s\S]*?([\w\s.]+),"
+        he_pattern = r"DATED this [^\n]*?(\d{1,2}[\s\S]*?(?:st|nd|rd|th)? day of [A-Za-z]+\s+\d{4}[,.]?)\s*([\w\s.]+)"
         he_match = re.search(he_pattern, pdf_text, re.IGNORECASE)
 
         if he_match:

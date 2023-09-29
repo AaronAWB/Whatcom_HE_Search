@@ -14,6 +14,7 @@ def create_app():
     app = Flask(__name__, static_url_path='/', static_folder='../../client/dist')
 
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_CONNECTION_STRING')
+    print(print(os.getenv('DB_CONNECTION_STRING')))
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<string:path>')
