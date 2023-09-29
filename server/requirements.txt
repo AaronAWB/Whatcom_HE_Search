@@ -36,7 +36,6 @@ psycopg2==2.9.7
 pycparser==2.21
 Pygments==2.16.1
 PyPDF2==3.0.1
-pytesseract==0.3.10
 python-dotenv==1.0.0
 pytz==2023.3
 referencing==0.30.2
@@ -50,3 +49,4 @@ tqdm==4.66.1
 typing_extensions==4.7.1
 urllib3==1.25.11
 Werkzeug==2.3.6
+wheel
