@@ -1,6 +1,6 @@
 import { Container, Table } from 'react-bootstrap'
 import { formatDate } from '@/utils/utilityFunctions'
-import '@Styles/results.css'
+import '@Styles/Results.css'
 
 interface Result {
   searchResults: {
