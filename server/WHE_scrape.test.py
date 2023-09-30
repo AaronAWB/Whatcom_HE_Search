@@ -1,5 +1,5 @@
 import unittest
-from main import app
+from server.application import app
 from src.lib.WHE_scrape import whe_scrape
 
 class TestWHE_Scrape(unittest.TestCase):
