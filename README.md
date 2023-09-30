@@ -4,7 +4,7 @@ Access it live <a href='http://whatcomhesearch.us-west-2.elasticbeanstalk.com/'>
 
 ## About
 
-<em>This is a filtered search platform for publically available Whatcom County Hearing Examiner decisions. It was created in response to the needs of the Land Use team at a local law firm. Although, the published decisionss are availble on the Whatcom County website here, the archive search functionality is limited. This resulted in a time consuming process requiring attorneys and paralegals to manually search through the archive to find relevant decisions. This platform addresses that issue by providing a fast and simple way to search through decisions by keyword, date, and the name of the Hearing Examiner who issued the decision.</em>
+<em>This is a filtered search platform for publically available Whatcom County Hearing Examiner decisions. It was created in response to the needs of the Land Use team at a local law firm. Although the published decisionss are availble on the Whatcom County website, the archive search functionality is limited. This resulted in a time consuming process requiring attorneys and paralegals to manually search through the archive to find relevant decisions. This platform addresses that issue by providing a fast and simple way to search through decisions by keyword, date, and the name of the Hearing Examiner who issued the decision.</em>
 
 <img width="1398" alt="Screenshot 2023-09-29 at 6 09 53 PM" src="https://github.com/AaronAWB/Whatcom_HE_Search/assets/108595340/e8a9c3f5-438a-4fec-a024-675190e3b9a8">
 
