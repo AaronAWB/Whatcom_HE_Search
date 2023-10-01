@@ -10,7 +10,7 @@ from pdfminer.high_level import extract_text
 from datetime import datetime
 
 
-class WHE_Scrape:
+class Extract_Data:
 
     def __init__(self):
         self.base_url = "https://wa-whatcomcounty.civicplus.com/"
@@ -189,4 +189,4 @@ class WHE_Scrape:
                 print(f"Error converting PDF{link}: {e}")
                 return f"Error converting non-searchable PDF{link}"    
 
-whe_scrape = WHE_Scrape()
+extract_data = Extract_Data()

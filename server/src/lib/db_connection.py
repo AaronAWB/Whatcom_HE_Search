@@ -1,4 +1,4 @@
-from src.lib.WHE_scrape import whe_scrape
+from server.src.lib.data_extraction import extract_data
 from ..extensions import db
 from src.models.decisions import Decision
 
@@ -6,7 +6,7 @@ class DB_Connection:
 
   def add_decisions(self):
       print('Adding decisions to database...')
-      decisions = whe_scrape.retrieve_pdf_data()
+      decisions = extract_data.retrieve_pdf_data()
       
       try:
       

@@ -4,7 +4,7 @@ from flask_restx import Resource
 from sqlalchemy import and_
 
 from src import api
-from src.lib.WHE_scrape import whe_scrape
+from server.src.lib.data_extraction import whe_scrape
 from src.models.decisions import Decision
 
 @api.route('/search')
