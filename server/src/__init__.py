@@ -6,7 +6,6 @@ from .extensions import api, db
 from dotenv import load_dotenv; load_dotenv()
 
 from .routes.search_routes import Search, Metadata
-from .routes.db_admin_routes import UpdateDB, ExtractTextFromImage
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -32,7 +31,5 @@ def create_app():
     
     api.add_resource(Search, '/search/<keyword>')
     api.add_resource(Metadata, '/metadata')
-    api.add_resource(UpdateDB, '/update_db')
-    api.add_resource(ExtractTextFromImage, '/extract_text/<link>')
-
+   
     return app

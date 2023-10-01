@@ -4,7 +4,7 @@ from flask_restx import Resource
 from sqlalchemy import and_
 
 from src import api
-from server.src.lib.data_extraction import whe_scrape
+from server.src.lib.data_extraction import extract_data
 from src.models.decisions import Decision
 
 @api.route('/search')
@@ -52,5 +52,5 @@ class Search(Resource):
 @api.route('/metadata')
 class Metadata(Resource):
   def get(self):
-    return {'metadata': whe_scrape.get_metadata()}
+    return {'metadata': extract_data.get_metadata()}
 
