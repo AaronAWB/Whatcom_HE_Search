@@ -1,4 +1,4 @@
-from server.src.lib.data_extraction import extract_data
+from src.lib.data_extraction import extract_data
 from ..extensions import db
 from src.models.decisions import Decision
 

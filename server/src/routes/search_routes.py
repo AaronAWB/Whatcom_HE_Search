@@ -4,7 +4,7 @@ from flask_restx import Resource
 from sqlalchemy import and_
 
 from src import api
-from server.src.lib.data_extraction import extract_data
+from src.lib.data_extraction import extract_data
 from src.models.decisions import Decision
 
 @api.route('/search')

@@ -5,7 +5,7 @@ from .extensions import api, db
 
 from dotenv import load_dotenv; load_dotenv()
 
-from .routes.search_routes import Search, Metadata
+from src.routes.search_routes import Search, Metadata
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
