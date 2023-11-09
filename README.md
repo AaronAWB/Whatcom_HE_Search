@@ -62,9 +62,9 @@ Similarly, the Python script uses BeautifulSoup to parse the table for Hearing D
 
 Other relevant information for each decision is contained in the text of the decision itself. This includes the name of the Hearing Examiner who issued the decision and the full text of the decision (necessary for keyword searches).
 
-I used the PyPDF2 library to extract the text from the PDFs located at each link. However, because different processes were used by County staff to scan and upload the decision, many of the PDFs were not searchable. This meant that the text was not stored in the PDF itself but was instead rendered as an image, making extraction impossible using PyPDF2. 
+I used the PyPDF2 library to extract the text from the PDFs located at each link. However, because different processes were used by County staff to scan and upload the decisions, many of the PDFs were not searchable. This meant that the text was not stored in the PDF itself but was instead rendered as an image, making extraction impossible using PyPDF2. 
 
-To address this issue, I used the Ocrmypdf library to convert the non-searchable PDFs to searchable PDFs using Google's Tesseract OCR engine. This allowed me to extract the text of every decision. The downside to this approach is that due to formatting issues, the text extracted by Tesseract contains occassional errores, especially if the original document was scanned at a low resolution. However, the errors are relatively minor and do not have a significant impoact on keyword seach functionality.
+To address this issue, I used the Ocrmypdf library to convert the non-searchable PDFs to searchable PDFs using Google's Tesseract OCR engine. This allowed me to extract the text of every decision. The downside to this approach is that due to formatting issues, the text extracted by Tesseract contains occassional errors, especially if the original document was scanned at a low resolution. However, the errors are relatively minor and do not have a significant impact on keyword seach functionality.
 
 ### Locating the Hearing Examiner's Name
 
