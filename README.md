@@ -68,13 +68,13 @@ To address this issue, I used the Ocrmypdf library to convert the non-searchable
 
 ### Locating the Hearing Examiner's Name
 
-The name of the Hearing Examiner who issued the decision is included in the decision but is not listed on the website. To locate the name, my Python script finds the decision's signature block using a regular expression match. This approach, although sucessfully in many cases, is not perfect. The regular expression needed to account for the fact that the signature block is not always formatted the same way. 
+The name of the Hearing Examiner who issued the decision is included in the decision but is not listed on the website. To locate the name, my Python script finds the decision's signature block using a regular expression match. This approach, although sucessful in many cases, is not perfect. The regular expression needed to account for the fact that the signature block is not always formatted the same way. 
 
 For example, some followed the format of "DATED this 1st day of January, 2021," while others were formatted as "DATED this 1st day of January, 2021. by Hearing Examiner John Doe." The regular expression I used to locate the signature block was able to account for these differences but missed certain less common variations or was unable to read the signature block if the decision was scanned at a low resolution. To address this issue, I manually reviewed the decisions that were not matched and updated the database with the correct name.
 
 ## Future Improvements
 
-In addition to making it faster and easier to locate relevate Whatcom County Hearing Examiner decisions, the goal for this platform is to provide additional ways for legal professionals and the publice to interact with the data using AI. This may involve the use of tools such as the ChatGPT API to generate summaries of decisions, answer targeted queries, or search decisions using natural language prompts.
+In addition to making it faster and easier to locate relevate Whatcom County Hearing Examiner decisions, the goal for this platform is to provide additional ways for legal professionals and the public to interact with the data using AI. This may involve the use of tools such as the ChatGPT API to generate summaries of decisions, answer targeted queries, or search decisions using natural language prompts.
 
 ## Author
 
